@@ -9,20 +9,34 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/contacts-app/register.php">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contacts-app/login.php">Login</a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="/contacts-app/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contacts-app/add.php">Add Contact</a>
-                </li> -->
-            </ul>
+            <div class="d-flex justify-content-between w-100">
+                <ul class="navbar-nav">
+                    <?php if (!isset($_SESSION['user'])) :  ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contacts-app/register.php">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contacts-app/login.php">Login</a>
+                    </li>
+                    <?php else : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contacts-app/home.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contacts-app/add.php">Add Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contacts-app/logout.php">Logout</a>
+                    </li>
+                    <?php endif ?>
+                </ul>
+                <?php
+                if (isset($_SESSION['user'])) : ?>
+                <div class="p-2">
+                    <?= $_SESSION['user']["email"] ?>
+                </div>
+                <?php endif ?>
+            </div>
         </div>
     </div>
 </nav>

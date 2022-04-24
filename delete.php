@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: index.php");
+}
 require "./db.php";
 $id = $_GET["id"];
 $statement = $conn->prepare("SELECT * FROM contacts WHERE id = :id");

@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: index.php");
+}
 require "./db.php";
 $id = $_GET["id"];
 $statement = $conn->prepare("SELECT * FROM contacts WHERE id = :id LIMIT 1");
@@ -36,14 +40,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="card-header">Add New Contact</div>
                 <div class="card-body">
                     <?php if ($error) : ?>
-                        <p class="text-danger"><?= $error; ?></p>
+                    <p class="text-danger"><?= $error; ?></p>
                     <?php endif ?>
                     <form method="POST" action="edit.php?id=<?= $contact["id"]  ?>">
                         <div class="mb-3 row">
                             <label for="name" class="col-md-4 col-form-label text-md-end">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus value="<?= $contact["name"] ?>" />
+                                <input id="name" type="text" class="form-control" name="name" required
+                                    autocomplete="name" autofocus value="<?= $contact["name"] ?>" />
 
                             </div>
                         </div>
@@ -53,7 +58,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 Number</label>
 
                             <div class="col-md-6">
-                                <input id="phone_number" type="tel" class="form-control" name="phone_number" required autocomplete="phone_number" autofocus value="<?= $contact["phone_number"] ?>" />
+                                <input id="phone_number" type="tel" class="form-control" name="phone_number" required
+                                    autocomplete="phone_number" autofocus value="<?= $contact["phone_number"] ?>" />
                             </div>
                         </div>
 
