@@ -7,13 +7,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else if (strlen($_POST["phone_number"]) < 9) {
         $error = "Phone number must be at least 9 characters.";
     } else {
-        $name = $_POST["name"];
-        $phoneNumber = $_POST["phone_number"];
-        $statement = $conn->prepare("INSERT INTO contacts (name, phone_number) VALUES (:name, :phoneNumber)");
-        $statement->bindParam(":name", $_POST["name"]);
-        $statement->bindParam(":phone_number", $_POST["phone_number"]);
-        $statement->execute();
-        header("Location: index.php");
+        try {
+            //code...
+            $name = $_POST["name"];
+            $phoneNumber = $_POST["phone_number"];
+            $statement = $conn->prepare("INSERT INTO contacts (name, phone_number) VALUES (:name, :phone_number)");
+            $statement->bindParam(":name", $_POST["name"]);
+            $statement->bindParam(":phone_number", $_POST["phone_number"]);
+            $statement->execute();
+            header("Location: index.php");
+        } catch (\Throwable $th) {
+            echo ("Error: " . $th->getMessage());
+        }
     }
 }
 ?>
