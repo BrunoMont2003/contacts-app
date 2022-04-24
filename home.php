@@ -5,7 +5,7 @@ if (!isset($_SESSION["user"])) {
     header("Location: login.php");
     return;
 }
-$contacts = $conn->query("SELECT * FROM contacts");
+$contacts = $conn->query("SELECT * FROM contacts WHERE id = {$_SESSION["user"]["id"]}");
 ?>
 
 <?php require "partials/header.php" ?>
