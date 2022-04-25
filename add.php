@@ -20,7 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $statement->bindParam(":phone_number", $_POST["phone_number"]);
             $statement->bindParam(":user_id", $_SESSION['user']["id"]);
             $statement->execute();
+
+            $_SESSION['flash'] = ["message" => "Contact {$_POST['name']} added."];
+
             header("Location: home.php");
+            return;
         } catch (\Throwable $th) {
             echo ("Error: " . $th->getMessage());
         }
